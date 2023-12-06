@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  Adjustment Request Form View  -->
+    <record id="view_vendor_adjustment_request_form" model="ir.ui.view">
+        <field name="name">vendor.adjustment.request.form</field>
+        <field name="model">vendor.adjustment.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Submit" type="object" name="send_submission_email" class="oe_highlight"
+                            states="draft"/>
+                    <button string="Cancel" type="object" name="cancel_request" class="oe_highlight" states="draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="sale_order_id"/>
+                        <field name="adjustment_detail"/>
+                        <field name="comment"/>
+                        <field name="user_id" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--  Adjustment Request Tree View  -->
+    <record id="view_vendor_adjustment_request_tree" model="ir.ui.view">
+        <field name="name">vendor.adjustment.request.tree</field>
+        <field name="model">vendor.adjustment.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="sale_order_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--  Adjustment Request Action  -->
+    <record id="action_vendor_adjustment_request" model="ir.actions.act_window">
+        <field name="name">Order Adjustment Request</field>
+        <field name="res_model">vendor.adjustment.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--  Adjustment Form Sequencing  -->
+    <record id="ir_seq_vendor_adjustment_request" model="ir.sequence">
+        <field name="name">Order Adjustment Request</field>
+        <field name="code">vendor.adjustment.request.seq</field>
+        <field name="prefix">ADJRQT/</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+        <field name="implementation">standard</field>
+    </record>
+
+    <!--  Adjustment Request Menu View  -->
+    <menuitem id="menu_vendor_adjustment_request" name="Order Adjustments"
+              groups="vendor_self_service_portal.vendor_forecast_user_access_group"
+              action="action_vendor_adjustment_request"
+              web_icon="vendor_self_service_portal,static/src/img/adjustment.png"
+    />
+</odoo>

@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+                <!--  Vendor Forecast Security Category  -->
+        <record id="vendor_forecast_security_category" model="ir.module.category">
+            <field name="name">Vendor Forecast</field>
+        </record>
+
+                <!--  Vendor Forecast Vendor Access Group  -->
+        <record id="vendor_forecast_user_access_group" model="res.groups">
+            <field name="name">Vendor: read only access</field>
+            <field name="category_id" ref="vendor_self_service_portal.vendor_forecast_security_category"/>
+        </record>
+
+                <!--  Vendor Forecast Manager Access Group  -->
+        <record id="vendor_forecast_manager_access_group" model="res.groups">
+            <field name="name">Manager: manage all forecasts</field>
+            <field name="category_id" ref="vendor_self_service_portal.vendor_forecast_security_category"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('vendor_self_service_portal.vendor_forecast_user_access_group'))]"/>
+        </record>
+
+                <!--  Vendor Forecast Admin Access Group  -->
+        <record id="vendor_forecast_admin_access_group" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="vendor_self_service_portal.vendor_forecast_security_category"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('vendor_self_service_portal.vendor_forecast_manager_access_group'))]"/>
+        </record>
+
+    </data>
+</odoo>
+

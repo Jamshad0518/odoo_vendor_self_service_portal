@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+                <!-- Sale Order Adjust Submission Mail Template  -->
+        <record id="email_vendor_adjust_submission" model="mail.template">
+            <field name="name">Sale Order Adjust Submission</field>
+            <field name="model_id" ref="vendor_self_service_portal.model_vendor_adjustment_request"/>
+            <field name="subject">Sale Order Adjustment Sumbission (Ref {{ object.name }})</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="description">Used to send mail confirmation on Vendor Order Adjustment Submission</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Hello Team,
+                        <br/>
+                        <br/>
+                        Please accept this Order Adjustment Request (<span style="font-weight: bold;"
+                                                                           t-out="object.name or ''"></span>) in prior
+                        consideration.
+                        <br/>
+                        <br/>
+                        Thank You !
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

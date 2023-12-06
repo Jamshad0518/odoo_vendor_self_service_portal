@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+            <!-- Vendor Forecast Form View  -->
+    <record id="view_vendor_forecast_tree" model="ir.ui.view">
+        <field name="name">vendor.forecast.tree</field>
+        <field name="model">vendor.forecast</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="product_id" width="40%" domain="[('type','in',['product','consu'])]"/>
+                <field name="expected_quantity" width="30%"/>
+                <field name="forecast_date" width="30%"/>
+            </tree>
+        </field>
+    </record>
+
+        <!-- Vendor Forecast Action with domain for next Quarter  -->
+    <record id="action_vendor_forecast" model="ir.actions.act_window">
+        <field name="name">Upcoming Demand Forecasts</field>
+        <field name="res_model">vendor.forecast</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('forecast_date', '>=', context_today().strftime('%Y-%m-%d')),
+            ('forecast_date', '&lt;=', (context_today() + relativedelta(months=3)).strftime('%Y-%m-%d'))]
+        </field>
+    </record>
+
+                <!--  Vendor Forecast Menu View  -->
+    <menuitem id="menu_vendor_forecast" name="Vendor Forecasts"
+              groups="vendor_self_service_portal.vendor_forecast_user_access_group"
+              action="vendor_self_service_portal.action_vendor_forecast"
+              web_icon="vendor_self_service_portal,static/src/img/inventory.png"
+    />
+</odoo>
